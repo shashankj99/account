@@ -1,0 +1,12 @@
+.btn, .card, .modal-content {
+    border-radius: 0px;
+}
+.form-control {
+    outline: #17a2b8 !important;
+    box-shadow: none !important;
+    border-radius: 0px;
+}
+.page-item.active .page-link {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
