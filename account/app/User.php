@@ -39,4 +39,9 @@ class User extends Authenticatable
         return $this->hasMany(Category::class);
     }
 
+    // one to many relation with sales
+    public function sales() {
+        return $this->hasMany(Sales::class);
+    }
+
 }

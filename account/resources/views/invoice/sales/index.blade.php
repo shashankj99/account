@@ -48,6 +48,58 @@
         <div class="col-12 col-sm-12 col-md-4"></div>
     </div>
 
+    {{-- sales table --}}
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive-sm">
+                <table class="table table-hover" id="sales-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name Of Comapny</th>
+                            <th>Invoice Number</th>
+                            <th>Invoice Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sales as $sale)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $sale->company->name }}</td>
+                                <td>{{ $sale->invoice_no }}</td>
+                                <td>{{ $sale->invoice_date }}</td>
+                                <td><span class="badge bg-warning">{{ ($sale->type == 1) ? "Taxable" : "Non-Taxable" }}</span></td>
+                                <td>{{ $sale->amount }}</td>
+                                <td>
+                                    <a href="" class="btn btn-outline-success btn-sm view-details" data-toggle="tooltip" data-placement="top" title="View User Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <button class="btn btn-outline-danger btn-sm delete-user" data-id="{{ $sale->id }}" data-toggle="tooltip" data-placement="top" title="Delete User">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Total</th>
+                            <th>{{ $totalAmount }}</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('page-scripts')
@@ -55,12 +107,12 @@
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
 
     <script>
-        // jQuery(function($) {
-        //     // data table
-        //     $('#user-table').DataTable();
+        jQuery(function($) {
+            // data table
+            $('#sales-table').DataTable();
 
-        //     // tooltip for buttons
-        //     $('.btn').tooltip();
+            // tooltip for buttons
+            $('.btn').tooltip();
 
         //     $('#user-table').on('click', '.delete-user', function() {
         //         if (confirm("Are you sure you want to delete this user?")) {
@@ -84,6 +136,6 @@
         //             return false;
         //         }
         //     });
-        // });
+        });
     </script>
 @endsection
