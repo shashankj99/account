@@ -24,8 +24,10 @@ class CompanyController extends Controller
 
     // function to direct user to the index page
     public function index() {
+        $companies = (Auth::user()->email == config('app.admin')) ? Company::all() : Company::where('user_id', Auth::id())->get();
+
         return view('company.index')
-            ->with('companies', Company::where('user_id', Auth::id())->get())
+            ->with('companies', $companies)
             ->with('i', $i=0);
     }
 

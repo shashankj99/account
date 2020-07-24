@@ -16,11 +16,57 @@ class SalesController extends Controller
     }
 
     // function to direct user to the index page
-    public function index() {
+    public function index(Request $request) {
+        // check the type of method
+        if ($request->method() == "POST") {
+            // builder query
+            $sales = Sales::query();
+
+            // check if start date & end_date is not empty and query accordingly
+            if ($request->start_date && $request->end_date) {
+                $sales->whereBetween('invoice_date', [$request->start_date, $request->end_date]);
+            }
+
+            // check if company is not empty and query accordingly
+            if ($request->company) {
+                $sales->where('company_id', '=', $request->company);
+            }
+
+            // insure the tax type is either 0 or 1 and query accordingly
+            if ($request->tax_type == 0 || $request->tax_type == 1) {
+                $sales->where('type', '=', $request->tax_type);
+            }
+
+            // if user is admin then query all the rows else perform user specific queries
+            if (Auth::user()->email == config('app.admin')) {
+                $sales = $sales->get();
+                $totalAmount = $sales->sum('amount');
+                $companies = Company::all();
+            } else {
+                $sales = $sales->where('user_id', '=', Auth::id())->get();
+                $totalAmount = $sales->where('user_id', Auth::id())->sum('amount');
+                $companies = Company::where('user_id', Auth::id())->get();
+            }
+        
+        // for get method conditional statements
+        } else {
+            if (Auth::user()->email == config('app.admin')) {
+                $sales = Sales::all();
+                $totalAmount = Sales::sum('amount');
+                $companies = Company::all();
+            } else {
+                $sales = Sales::where('user_id', Auth::id())->get();
+                $totalAmount = Sales::where('user_id', Auth::id())->sum('amount');
+                $companies = Company::where('user_id', Auth::id())->get();
+            }
+        }
+
+        // return user to the blade
         return view('invoice.sales.index')
             ->with('i', $i=0)
-            ->with('sales', Sales::where('user_id', Auth::id())->get())
-            ->with('totalAmount', Sales::where('user_id', Auth::id())->sum('amount'));
+            ->with('sales', $sales)
+            ->with('totalAmount', $totalAmount)
+            ->with('companies', $companies);
     }
 
     // function to direct user to the create page
@@ -28,8 +74,8 @@ class SalesController extends Controller
         // create a new Sales Instance and pass it to the view page
         $sale = new Sales();
 
-        // get all the companies created by the user
-        $companies = Company::where('user_id', Auth::id())->get();
+        // get all the companies for admin and perform user specific query for non-admins
+        $companies = (Auth::user()->email == config('app.admin')) ? Company::all() : Company::where('user_id', Auth::id())->get();
 
         return view('invoice.sales.create', compact('sale', 'companies'));
     }
@@ -62,21 +108,18 @@ class SalesController extends Controller
         }
     }
 
-
-    public function show(Sales $sales)
-    {
-        //
+    // this function doesn't exist
+    public function show(Sales $sales) {
+        Session::flash('info', "This URL doesn't exist");
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Sales  $sales
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sales $sales)
-    {
-        //
+    // function to direct user to the edit view
+    public function edit(Sales $sale) {
+        // get all the companies for admin and perform user specific query for non-admins
+        $companies = (Auth::user()->email == config('app.admin')) ? Company::all() : Company::where('user_id', Auth::id())->get();
+
+        return view('invoice.sales.edit', compact('sale', 'companies'));
     }
 
     /**

@@ -24,5 +24,7 @@ Route::resource('category', 'CategoryController');
 
 // invoice wise sales and purchase route
 Route::prefix('invoice')->group(function () {
-    Route::resource('sales', 'SalesController');
+    Route::match(['get', 'post'], '/sales', 'SalesController@index')->name('sales.index');
+    Route::post('sales/store', 'SalesController@store')->name('sales.store');
+    Route::resource('sales', 'SalesController', ['except' => ['index', 'store']]);
 });
