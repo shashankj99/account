@@ -261,28 +261,28 @@
 
             });
 
-        //     $('#user-table').on('click', '.delete-user', function() {
-        //         if (confirm("Are you sure you want to delete this user?")) {
-        //             let id = this.dataset.id,
-        //                 url = "{{ route('user.destroy', ':id') }}";
+            $('#sales-table').on('click', '.delete-sales', function() {
+                if (confirm("Are you sure you want to delete this sales data?")) {
+                    let id = this.dataset.id,
+                        url = "{{ route('sales.destroy', ':id') }}";
 
-        //             url = url.replace(":id", id);
+                    url = url.replace(":id", id);
 
-        //             $.ajax({
-        //                 url: url,
-        //                 type: "DELETE",
-        //                 data: {
-        //                     "_token": "{{ csrf_token() }}",
-        //                 },
-        //                 success:function(response) {
-        //                     alert(response);
-        //                     location.reload();
-        //                 }
-        //             });
-        //         } else {
-        //             return false;
-        //         }
-        //     });
+                    $.ajax({
+                        url: url,
+                        type: "DELETE",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success:function(response) {
+                            alert(response);
+                            location.reload();
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            });
         });
     </script>
 @endsection

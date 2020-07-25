@@ -122,26 +122,29 @@ class SalesController extends Controller
         return view('invoice.sales.edit', compact('sale', 'companies'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sales  $sales
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Sales $sales)
-    {
-        //
+    // function to update sales entry
+    public function update(Request $request, Sales $sale) {
+        try {
+            $sale->update($request->validate([
+                'company_id' => "required|numeric",
+                'invoice_no' => "required",
+                'invoice_date' => "required",
+                'amount' => "required|numeric"
+            ]) + ['type' => $request->tax_type]);
+
+            Session::flash('success', "Sales entry was updated successfully");
+            return redirect()->route('sales.index');
+
+        } catch (\Exception $error) {
+            Session::flash('error', $error->getMessage());
+            return redirect()->back();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Sales  $sales
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Sales $sales)
-    {
-        //
+    // function to delete the sales entry
+    public function destroy(Sales $sale) {
+        $sale->delete();
+
+        return response("The sales entry of invoice no ". $sale->invoice_no. " is deleted successfully");
     }
 }
