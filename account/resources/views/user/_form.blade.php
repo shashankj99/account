@@ -5,7 +5,7 @@
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
             <div class="col-md-6">
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Enter full name of the user">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" @isset($user) value="{{ $user->name }}" @else value="{{ old('name') }}" @endisset required autocomplete="name" autofocus placeholder="Enter full name of the user">
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -19,7 +19,7 @@
             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Enter email-address of user">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" @isset($user) value="{{ $user->email }}" @else value="{{ old('email') }}" @endisset required autocomplete="email" placeholder="Enter email-address of user">
 
                 @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -33,7 +33,7 @@
             <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile Number') }}</label>
 
             <div class="col-md-6">
-                <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" pattern="[1-9]{1}[0-9]{9}" placeholder="Enter active mobile number of user">
+                <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" @isset($user) value="{{ $user->mobile }}" @else value="{{ old('mobile') }}" @endisset pattern="[1-9]{1}[0-9]{9}" placeholder="Enter active mobile number of user">
 
                 @error('mobile')
                     <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
             <div class="col-md-6">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Enter a password">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" {{ (!isset($user)) ? "required" : "" }} autocomplete="new-password" placeholder="Enter a password">
 
                 @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
             <div class="col-md-6">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="retype the password">
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" {{ (!isset($user)) ? "required" : "" }} autocomplete="new-password" placeholder="retype the password">
             </div>
         </div>
 

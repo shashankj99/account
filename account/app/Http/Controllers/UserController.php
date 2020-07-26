@@ -59,33 +59,43 @@ class UserController extends Controller
         }
     }
 
-    // function to show the details about a user
-    public function show(User $user)
-    {
-        //
+    // this route is not necessary
+    public function show(User $user) {
+        Session::flash('info', "This URL doesn't exist");
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+    // function to direct user to the edit view
+    public function edit(User $user) {
+        return view('user.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
+    // function to update the user detail
+    public function update(Request $request, User $user) {
+        try {
+            if (empty($request->password)) {
+                $user->update($request->validate([
+                    'name' => "required|string|max:255",
+                    'email' => "required|email|max:255|unique:users,email,".$user->id,
+                ]) + ['mobile' + $request->mobile]); 
+            } else if ($request->password == $request->password_confirmation) {
+                $formData = array(
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'mobile' => $request->mobile,
+                    'password' => Hash::make($request->password)
+                );
+                
+                $user->update($formData);
+            }
+
+            Session::flash('success', "User updated successfully");
+            return redirect()->route('user.index');            
+        } catch (\Exception $error) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($error->getMessage());
+        }
     }
 
     // function to delete the user details

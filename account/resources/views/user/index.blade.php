@@ -79,8 +79,8 @@
                                 <td>{{ $user->mobile }}</td>
                                 <td><span class="badge bg-success">Completed</span></td>
                                 <td>
-                                    <a href="" class="btn btn-outline-success btn-sm view-details" data-toggle="tooltip" data-placement="top" title="View User Details">
-                                        <i class="fas fa-eye"></i>
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-outline-success btn-sm edit-details" data-toggle="tooltip" data-placement="top" title="Edit User Details">
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <button class="btn btn-outline-danger btn-sm delete-user" data-id="{{ $user->id }}" data-toggle="tooltip" data-placement="top" title="Delete User">
                                         <i class="fas fa-trash"></i>
