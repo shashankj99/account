@@ -22,7 +22,7 @@
         </div>
         <div class="col-12 col-sm-8 col-md-10 mb-2">
             <div class="text-center">
-                <h1 class="m-0 text-dark">Add a new company</h1>
+                <h1 class="m-0 text-dark">Edit company</h1>
             </div>
         </div>
     </div>
@@ -32,9 +32,10 @@
     
     <div class="row">
         <div class="col-12">
-            <form action="{{ route('company.store') }}" method="post">
+            <form action="{{ route('company.update', $company->id) }}" method="post">
                 @csrf
-                @include('company._form', ['buttonText' => 'Submit', 'categories' => $categories])
+                {{ method_field('PUT') }}
+                @include('company._form', ['buttonText' => 'Submit', 'categories' => $categories, 'company' => $company])
             </form>
         </div>
     </div>

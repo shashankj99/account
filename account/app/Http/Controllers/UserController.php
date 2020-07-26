@@ -77,7 +77,7 @@ class UserController extends Controller
                 $user->update($request->validate([
                     'name' => "required|string|max:255",
                     'email' => "required|email|max:255|unique:users,email,".$user->id,
-                ]) + ['mobile' + $request->mobile]); 
+                ]) + ['mobile' + $request->mobile]);
             } else if ($request->password == $request->password_confirmation) {
                 $formData = array(
                     'name' => $request->name,
@@ -85,7 +85,6 @@ class UserController extends Controller
                     'mobile' => $request->mobile,
                     'password' => Hash::make($request->password)
                 );
-                
                 $user->update($formData);
             }
 

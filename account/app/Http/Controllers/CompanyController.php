@@ -63,31 +63,33 @@ class CompanyController extends Controller
     }
 
 
-    public function edit(Company $company)
-    {
-        //
+    public function edit(Company $company) {
+        // get all the categories
+        $categories = Category::all();
+
+        return view('company.edit', compact('categories', 'company'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Company $company)
-    {
-        //
+    // function to update the company detail
+    public function update(CompanyRequest $request, Company $company) {
+        try {
+            $company->update($request->validated());
+
+            Session::flash('success', "Company is updated successfully");
+            return redirect()->route('company.index');
+        } catch (\Exception $error) {
+            Session::flash('error', $error->getMessage());
+            return redirect()->back()->withInput();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Company $company)
-    {
-        //
+    // function to delete the company
+    public function destroy(Company $company) {
+        // check whether the user is authorized to delete the category or not
+        $this->authorize('delete', $company);
+
+        $company->delete();
+
+        return response("Company ". $company->name. " is deleted successfully");
     }
 }

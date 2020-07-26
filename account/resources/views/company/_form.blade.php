@@ -51,7 +51,7 @@
                 <select name="type" id="type" class="form-control select2 @error('type') is-invalid @enderror" required>
                     <option value="">-- Select a category for company --</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" {{ ($company->type == $category->id) ? "selected" : "" }}>{{ $category->name }}</option>
                     @endforeach
                 </select>
 

@@ -52,7 +52,7 @@
     <div class="row">
         <div class="col-12">
             <div class="table-responsive-sm">
-                <table class="table table-hover" id="user-table">
+                <table class="table table-hover" id="company-table">
                     <thead>
                         <tr>
                             <th>S.No</th>
@@ -72,12 +72,14 @@
                                 <td>{{ $company->reg_date }}</td>
                                 <td><span class="badge bg-success">{{ \App\Category::find($company->type)->name }}</span></td>
                                 <td>
-                                    <a href="" class="btn btn-outline-success btn-sm view-details" data-toggle="tooltip" data-placement="top" title="View User Details">
-                                        <i class="fas fa-eye"></i>
+                                    <a href="{{ route('company.edit', $company->id) }}" class="btn btn-outline-success btn-sm edit-details" data-toggle="tooltip" data-placement="top" title="Edit Company Details">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <button class="btn btn-outline-danger btn-sm delete-user" data-id="{{ $company->id }}" data-toggle="tooltip" data-placement="top" title="Delete User">
+                                    @can('delete', $company)
+                                        <button class="btn btn-outline-danger btn-sm delete-company" data-id="{{ $company->id }}" data-toggle="tooltip" data-placement="top" title="Delete Company">
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -96,15 +98,15 @@
     <script>
         jQuery(function($) {
             // data table
-            $('#user-table').DataTable();
+            $('#company-table').DataTable();
 
             // tooltip for buttons
             $('.btn').tooltip();
 
-            $('#user-table').on('click', '.delete-user', function() {
-                if (confirm("Are you sure you want to delete this user?")) {
+            $('#company-table').on('click', '.delete-company', function() {
+                if (confirm("Are you sure you want to delete this company?")) {
                     let id = this.dataset.id,
-                        url = "{{ route('user.destroy', ':id') }}";
+                        url = "{{ route('company.destroy', ':id') }}";
 
                     url = url.replace(":id", id);
 
