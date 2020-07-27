@@ -9,7 +9,7 @@
 @section('content-header')
     <div class="row mb-2">
         <div class="col-12">
-            <h1 class="m-0 text-dark">Invoice Wise Sales Entry</h1>
+            <h1 class="m-0 text-dark">Invoice Wise Purchase Entry</h1>
         </div>
     </div>
 @endsection
@@ -31,7 +31,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    This page is user limited. Each user can make sales entry of a single company at a single time. The sales entry made by a user is not visible to other users but limited to admin only.
+                    This page is user limited. Each user can make purchase entry of a single company at a single time. The purchase entry made by a user is not visible to other users but limited to admin only.
                 </div>
               <!-- /.card-body -->
             </div>
@@ -39,12 +39,12 @@
         </div>
     </div>
 
-    {{-- Sales Enrty Button --}}
+    {{-- Purchase Enrty Button --}}
     <div class="row">
         <div class="col-12 col-sm-12 col-md-4"></div>
         <div class="col-12 col-sm-12 col-md-4 my-2">
-            <a href="{{ route('sales.create') }}" class="btn btn-block btn-primary">
-                <i class="fas fa-upload"></i> Make Sales Entry
+            <a href="{{ route('purchase.create') }}" class="btn btn-block btn-primary">
+                <i class="fas fa-upload"></i> Make Purchase Entry
             </a>
         </div>
         <div class="col-12 col-sm-12 col-md-4"></div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('sales.index') }}" method="post">
+                    <form action="{{ route('purchase.index') }}" method="post">
                         @csrf
 
                         <div class="row">
@@ -90,7 +90,7 @@
                             <div class="col-12 col-sm-12 col-md-4 my-1">
                                 <div class="form-group">
                                     <select name="company" id="" class="form-control">
-                                        <option value="">-- select a company for sales entry --</option>
+                                        <option value="">-- select a company for purchase entry --</option>
                                         @foreach ($companies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                                         @endforeach
@@ -98,11 +98,11 @@
                                 </div>
                             </div>
 
-                            {{-- sales type --}}
+                            {{-- purchase type --}}
                             <div class="col-12 col-sm-12 col-md-2 my-1">
                                 <div class="form-group">
                                     <select name="tax_type" id="" class="form-control">
-                                        <option value="">-- Sales Type --</option>
+                                        <option value="">-- Purchase Type --</option>
                                         <option value="0">Non-Taxable</option>
                                         <option value="1">Taxable</option>
                                     </select>
@@ -125,11 +125,11 @@
         </div>
     </div>
 
-    {{-- sales table --}}
+    {{-- purchase table --}}
     <div class="row">
         <div class="col-12">
             <div class="table-responsive-sm">
-                <table class="table table-hover" id="sales-table">
+                <table class="table table-hover" id="purchase-table">
                     <thead>
                         <tr>
                             <th>S.No</th>
@@ -142,19 +142,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($sales as $sale)
+                        @foreach ($purchases as $purchase)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $sale->company->name }}</td>
-                                <td>{{ $sale->invoice_no }}</td>
-                                <td>{{ $sale->invoice_date }}</td>
-                                <td><span class="badge bg-warning">{{ ($sale->type == 1) ? "Taxable" : "Non-Taxable" }}</span></td>
-                                <td>Rs. {{ $sale->amount }}</td>
+                                <td>{{ $purchase->company->name }}</td>
+                                <td>{{ $purchase->invoice_no }}</td>
+                                <td>{{ $purchase->invoice_date }}</td>
+                                <td><span class="badge bg-warning">{{ ($purchase->type == 1) ? "Taxable" : "Non-Taxable" }}</span></td>
+                                <td>Rs. {{ $purchase->amount }}</td>
                                 <td>
-                                    <button class="btn btn-outline-success btn-sm edit-sales" data-id="{{ $sale->id }}" data-toggle="tooltip" data-placement="top" title="Edit Sales Detail">
+                                    <button class="btn btn-outline-success btn-sm edit-purchase" data-id="{{ $purchase->id }}" data-toggle="tooltip" data-placement="top" title="Edit Purchase Detail">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-outline-danger btn-sm delete-sales" data-id="{{ $sale->id }}" data-toggle="tooltip" data-placement="top" title="Delete Sales Detail">
+                                    <button class="btn btn-outline-danger btn-sm delete-purchase" data-id="{{ $purchase->id }}" data-toggle="tooltip" data-placement="top" title="Delete Purchase Detail">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -178,7 +178,7 @@
     </div>
 
     {{-- Edit Modal --}}
-    <div class="modal fade" id="modal-sales-edit">
+    <div class="modal fade" id="modal-purchase-edit">
         <div class="modal-dialog">
             <div class="modal-content">
             </div>
@@ -205,12 +205,12 @@
     <script>
         jQuery(function($) {
             // data table
-            $('#sales-table').DataTable({
+            $('#purchase-table').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: "print",
-                        title: "Invoice Wise Sales Entry",
+                        title: "Invoice Wise Purchase Entry",
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5],
                         },
@@ -218,7 +218,7 @@
                     },
                     {
                         extend: "excel",
-                        title: "Invoice Wise Sales Entry",
+                        title: "Invoice Wise Purchase Entry",
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5],
                         },
@@ -226,7 +226,7 @@
                     },
                     {
                         extend: "pdf",
-                        title: "Invoice Wise Sales Entry",
+                        title: "Invoice Wise Purchase Entry",
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5],
                         },
@@ -240,9 +240,9 @@
 
             // $('#reservation').daterangepicker();
 
-            $('#sales-table').on('click', '.edit-sales', function() {
+            $('#purchase-table').on('click', '.edit-purchase', function() {
                 // assign route and id to the variables
-                let url = "{{ route('sales.edit', ':id') }}",
+                let url = "{{ route('purchase.edit', ':id') }}",
                     id = this.dataset.id;
                 
                 // replace the id string with actual id
@@ -250,8 +250,8 @@
 
                 // send ajax get request to the server
                 $.get(url, function(response) {
-                    $('#modal-sales-edit .modal-content').html(response);
-                    $('#modal-sales-edit').modal({
+                    $('#modal-purchase-edit .modal-content').html(response);
+                    $('#modal-purchase-edit').modal({
                         display: 'show',
                         backdrop: 'static',
                         keyboard: false
@@ -261,10 +261,10 @@
 
             });
 
-            $('#sales-table').on('click', '.delete-sales', function() {
-                if (confirm("Are you sure you want to delete this sales data?")) {
+            $('#purchase-table').on('click', '.delete-purchase', function() {
+                if (confirm("Are you sure you want to delete this purchase data?")) {
                     let id = this.dataset.id,
-                        url = "{{ route('sales.destroy', ':id') }}";
+                        url = "{{ route('purchase.destroy', ':id') }}";
 
                     url = url.replace(":id", id);
 

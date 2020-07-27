@@ -53,7 +53,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ Request::is('invoice/purchanse*') ? "active" : "" }}">
+                            <a href="{{ route('purchase.index') }}" class="nav-link {{ Request::is('invoice/purchase*') ? "active" : "" }}">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>Purchase Entry</p>
                             </a>

@@ -24,7 +24,13 @@ Route::resource('category', 'CategoryController');
 
 // invoice wise sales and purchase route
 Route::prefix('invoice')->group(function () {
+    // sales Route
     Route::match(['get', 'post'], '/sales', 'SalesController@index')->name('sales.index');
     Route::post('sales/store', 'SalesController@store')->name('sales.store');
     Route::resource('sales', 'SalesController', ['except' => ['index', 'store']]);
+
+    // purchase route
+    Route::match(['get', 'post'], '/purchase', 'PurchaseController@index')->name('purchase.index');
+    Route::post('purchase/store', 'PurchaseController@store')->name('purchase.store');
+    Route::resource('purchase', 'PurchaseController', ['except' => ['index', 'store']]);
 });
