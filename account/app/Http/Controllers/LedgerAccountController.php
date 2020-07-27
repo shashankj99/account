@@ -53,8 +53,9 @@ class LedgerAccountController extends Controller
     }
 
     // function to view the ledger sheet
-    public function show(LedgerAccount $ledgerAccount) {
-        // @todo: Ledger sheet
+    public function show(LedgerAccount $account) {
+        $i = 0;
+        return view('ledger.account.show', compact('i', 'account'));
     }
 
     // function to direct user to the edit page

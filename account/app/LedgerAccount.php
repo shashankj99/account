@@ -17,4 +17,9 @@ class LedgerAccount extends Model
     public function company() {
         return $this->belongsTo(Company::class);
     }
+
+    // one to many relation with ledger entries
+    public function ledgerEntries() {
+        return $this->hasMany(LedgerEntry::class);
+    }
 }

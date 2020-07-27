@@ -54,4 +54,9 @@ class User extends Authenticatable
         return $this->hasMany(LedgerAccount::class);
     }
 
+    // one to many relation with ledger entries
+    public function ledgerEntries() {
+        return $this->hasMany(LedgerEntry::class);
+    }
+
 }

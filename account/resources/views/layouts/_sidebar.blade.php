@@ -76,7 +76,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link {{ Request::is('ledger/entry*') ? "active" : "" }}">
+                            <a href="{{ route('entry.index') }}" class="nav-link {{ Request::is('ledger/entry*') ? "active" : "" }}">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>Ledger Entry</p>
                             </a>

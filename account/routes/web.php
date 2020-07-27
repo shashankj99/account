@@ -39,4 +39,6 @@ Route::prefix('invoice')->group(function () {
 Route::prefix('ledger')->group(function () {
     // ledger account route
     Route::resource('account', 'LedgerAccountController');
+    // ledger entry route
+    Route::resource('entry', 'LedgerEntryController');
 });
