@@ -34,3 +34,9 @@ Route::prefix('invoice')->group(function () {
     Route::post('purchase/store', 'PurchaseController@store')->name('purchase.store');
     Route::resource('purchase', 'PurchaseController', ['except' => ['index', 'store']]);
 });
+
+// ledger route
+Route::prefix('ledger')->group(function () {
+    // ledger account route
+    Route::resource('account', 'LedgerAccountController');
+});

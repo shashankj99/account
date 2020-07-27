@@ -19,4 +19,19 @@ class Company extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    // one to many relation with sales
+    public function sales() {
+        return $this->hasMany(Sales::class);
+    }
+
+    // one to many relation with purchase
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
+    }
+
+    // one to many relation with ledger accounts
+    public function ledgerAccounts() {
+        return $this->hasMany(LedgerAccount::class);
+    }
 }

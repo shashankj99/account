@@ -49,4 +49,9 @@ class User extends Authenticatable
         return $this->hasMany(Purchase::class);
     }
 
+    // one to many relation with ledger accounts
+    public function ledgerAccounts() {
+        return $this->hasMany(LedgerAccount::class);
+    }
+
 }

@@ -60,6 +60,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-tree-view {{ Request::is('ledger*') ? "menu-open" : "" }}">
+                    <a href="#" class="nav-link {{ Request::is('ledger*') ? "active" : "" }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Ledger Operation
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('account.index') }}" class="nav-link {{ Request::is('ledger/account*') ? "active" : "" }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>Ledger Account</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link {{ Request::is('ledger/entry*') ? "active" : "" }}">
+                                <i class="nav-icon fas fa-book-open"></i>
+                                <p>Ledger Entry</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

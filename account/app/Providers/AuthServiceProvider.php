@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Category;
 use App\Company;
+use App\LedgerAccount;
 use App\Policies\CategoryPolicy;
 use App\Policies\CompanyPolicy;
+use App\Policies\LedgerAccountPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Category::class => CategoryPolicy::class,
         Company::class => CompanyPolicy::class,
+        LedgerAccount::class => LedgerAccountPolicy::class,
     ];
 
     // function to register any authentication / authorization service
