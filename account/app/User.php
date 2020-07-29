@@ -63,4 +63,9 @@ class User extends Authenticatable
     public function receipts() {
         return $this->hasMany(Receipt::class);
     }
+
+    // one to many relation with payment
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
 }

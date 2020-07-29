@@ -26,15 +26,15 @@
                     </li>
                 @endcan
                 <li class="nav-item">
-                    <a href="{{ route('company.index') }}" class="nav-link {{ Request::is('company*') ? "active" : "" }}">
-                        <i class="nav-icon far fa-building"></i>
-                        <p>Company Management</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('category.index') }}" class="nav-link {{ Request::is('category*') ? "active" : "" }}">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>Company Category</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('company.index') }}" class="nav-link {{ Request::is('company*') ? "active" : "" }}">
+                        <i class="nav-icon far fa-building"></i>
+                        <p>Company Management</p>
                     </a>
                 </li>
                 <li class="nav-item has-tree-view {{ Request::is('invoice*') ? "menu-open" : "" }}">
@@ -99,7 +99,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ Request::is('journal/payment*') ? "active" : "" }}">
+                            <a href="{{ route('payment.index') }}" class="nav-link {{ Request::is('journal/payment*') ? "active" : "" }}">
                                 <i class="nav-icon fas fa-file-invoice-dollar"></i>
                                 <p>Payment Entry</p>
                             </a>

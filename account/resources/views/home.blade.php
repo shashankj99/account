@@ -62,10 +62,22 @@
         <!-- /.col -->
     </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12">
             <div class="text-center my-5">
                 <h3>Welcome! You're authorized to continue</h3>
+            </div>
+        </div>
+    </div> --}}
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
+
+                <div class="card-body">
+                    You are logged in!
+                </div>
             </div>
         </div>
     </div>

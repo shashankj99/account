@@ -49,4 +49,9 @@ Route::prefix('journal')->group(function () {
     Route::match(['get', 'post'], '/receipt', 'ReceiptController@index')->name('receipt.index');
     Route::post('receipt/store', 'ReceiptController@store')->name('receipt.store');
     Route::resource('receipt', 'ReceiptController', ['except' => ['index', 'store']]);
+
+    // payment route
+    Route::match(['get', 'post'], '/payment', 'PaymentController@index')->name('payment.index');
+    Route::post('payment/store', 'PaymentController@store')->name('payment.store');
+    Route::resource('payment', 'PaymentController', ['except' => ['index', 'store']]);
 });
