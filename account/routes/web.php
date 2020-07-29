@@ -42,3 +42,11 @@ Route::prefix('ledger')->group(function () {
     // ledger entry route
     Route::resource('entry', 'LedgerEntryController');
 });
+
+// Journal Voucher Routes
+Route::prefix('journal')->group(function () {
+    // receipt route
+    Route::match(['get', 'post'], '/receipt', 'ReceiptController@index')->name('receipt.index');
+    Route::post('receipt/store', 'ReceiptController@store')->name('receipt.store');
+    Route::resource('receipt', 'ReceiptController', ['except' => ['index', 'store']]);
+});

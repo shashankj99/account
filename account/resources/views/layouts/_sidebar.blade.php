@@ -83,6 +83,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-tree-view {{ Request::is('journal*') ? "menu-open" : "" }}">
+                    <a href="#" class="nav-link {{ Request::is('journal*') ? "active" : "" }}">
+                        <i class="nav-icon far fa-bookmark"></i>
+                        <p>
+                            Journal Voucher Entry
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('receipt.index') }}" class="nav-link {{ Request::is('journal/receipt*') ? "active" : "" }}">
+                                <i class="nav-icon fas fa-receipt"></i>
+                                <p>Receipt Entry</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link {{ Request::is('journal/payment*') ? "active" : "" }}">
+                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                <p>Payment Entry</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
