@@ -106,6 +106,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-tree-view {{ Request::is('note*') ? "menu-open" : "" }}">
+                    <a href="#" class="nav-link {{ Request::is('note*') ? "active" : "" }}">
+                        <i class="nav-icon fas fa-sticky-note"></i>
+                        <p>
+                            Note Voucher Entry
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('debit.index') }}" class="nav-link {{ Request::is('note/debit*') ? "active" : "" }}">
+                                <i class="nav-icon fas fa-donate"></i>
+                                <p>Debit Note Entry</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link {{ Request::is('note/credit*') ? "active" : "" }}">
+                                <i class="nav-icon fas fa-hand-holding-usd"></i>
+                                <p>Credit Note Entry</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

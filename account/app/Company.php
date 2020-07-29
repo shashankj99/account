@@ -34,4 +34,19 @@ class Company extends Model
     public function ledgerAccounts() {
         return $this->hasMany(LedgerAccount::class);
     }
+
+    // one to many relation with receipt
+    public function receipts() {
+        return $this->hasMany(Receipt::class);
+    }
+
+    // one to many relation with payment
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
+
+    // one to many relation with payment
+    public function debits() {
+        return $this->hasMany(Debit::class);
+    }
 }

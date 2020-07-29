@@ -68,4 +68,9 @@ class User extends Authenticatable
     public function payments() {
         return $this->hasMany(Payment::class);
     }
+
+    // one to many relation with payment
+    public function debits() {
+        return $this->hasMany(Debit::class);
+    }
 }
