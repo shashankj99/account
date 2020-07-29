@@ -45,8 +45,13 @@ class Company extends Model
         return $this->hasMany(Payment::class);
     }
 
-    // one to many relation with payment
+    // one to many relation with debit
     public function debits() {
         return $this->hasMany(Debit::class);
+    }
+
+    // one to many relation with credit
+    public function credits() {
+        return $this->hasMany(Credit::class);
     }
 }

@@ -58,13 +58,13 @@ Route::prefix('journal')->group(function () {
 
 // Note Voucher Routes
 Route::prefix('note')->group(function () {
-    // receipt route
+    // debit note route
     Route::match(['get', 'post'], '/debit', 'DebitController@index')->name('debit.index');
     Route::post('debit/store', 'DebitController@store')->name('debit.store');
     Route::resource('debit', 'DebitController', ['except' => ['index', 'store']]);
 
-    // // payment route
-    // Route::match(['get', 'post'], '/payment', 'PaymentController@index')->name('payment.index');
-    // Route::post('payment/store', 'PaymentController@store')->name('payment.store');
-    // Route::resource('payment', 'PaymentController', ['except' => ['index', 'store']]);
+    // credit note route
+    Route::match(['get', 'post'], '/credit', 'CreditController@index')->name('credit.index');
+    Route::post('credit/store', 'CreditController@store')->name('credit.store');
+    Route::resource('credit', 'CreditController', ['except' => ['index', 'store']]);
 });

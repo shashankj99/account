@@ -9,7 +9,7 @@
 @section('content-header')
     <div class="row mb-2">
         <div class="col-12">
-            <h1 class="m-0 text-dark">Debit Note Voucher Entry</h1>
+            <h1 class="m-0 text-dark">Credit Note Voucher Entry</h1>
         </div>
     </div>
 @endsection
@@ -31,7 +31,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    This page is user limited. Each user can make debit note voucher entry of a single company at a single time. The debit note voucher entry made by a user is not visible to other users but limited to admin only.
+                    This page is user limited. Each user can make credit note voucher entry of a single company at a single time. The credit note voucher entry made by a user is not visible to other users but limited to admin only.
                 </div>
               <!-- /.card-body -->
             </div>
@@ -43,8 +43,8 @@
     <div class="row">
         <div class="col-12 col-sm-12 col-md-4"></div>
         <div class="col-12 col-sm-12 col-md-4 my-2">
-            <a href="{{ route('debit.create') }}" class="btn btn-block btn-primary">
-                <i class="fas fa-upload"></i> Make Debit Note Entry
+            <a href="{{ route('credit.create') }}" class="btn btn-block btn-primary">
+                <i class="fas fa-upload"></i> Make Credit Note Entry
             </a>
         </div>
         <div class="col-12 col-sm-12 col-md-4"></div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('debit.index') }}" method="post">
+                    <form action="{{ route('credit.index') }}" method="post">
                         @csrf
 
                         <div class="row">
@@ -90,7 +90,7 @@
                             <div class="col-12 col-sm-12 col-md-4 my-1">
                                 <div class="form-group">
                                     <select name="company" id="" class="form-control">
-                                        <option value="">-- select a company for debit note entry --</option>
+                                        <option value="">-- select a company for credit note entry --</option>
                                         @foreach ($companies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                                         @endforeach
@@ -114,36 +114,36 @@
         </div>
     </div>
 
-    {{-- debit table --}}
+    {{-- credit table --}}
     <div class="row">
         <div class="col-12">
             <div class="table-responsive-sm">
-                <table class="table table-hover" id="debit-table">
+                <table class="table table-hover" id="credit-table">
                     <thead>
                         <tr>
                             <th>S.No</th>
                             <th>Date</th>
                             <th>Name Of Company</th>
-                            <th>Debit Note No</th>
+                            <th>Credit Note No</th>
                             <th>Qty</th>
                             <th>Amount</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($debits as $debit)
+                        @foreach ($credits as $credit)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $debit->date }}</td>
-                                <td>{{ $debit->company->name }}</td>
-                                <td><span class="badge bg-success">{{ $debit->debit_note_no }}</span></td>
-                                <td>{{ ($debit->qty == null) ? 0 : $debit->qty }}</td>
-                                <td>Rs. {{ $debit->amount }}</td>
+                                <td>{{ $credit->date }}</td>
+                                <td>{{ $credit->company->name }}</td>
+                                <td><span class="badge bg-success">{{ $credit->credit_note_no }}</span></td>
+                                <td>{{ ($credit->qty == null) ? 0 : $credit->qty }}</td>
+                                <td>Rs. {{ $credit->amount }}</td>
                                 <td>
-                                    <a href="{{ route('debit.edit', $debit->id) }}" class="btn btn-outline-success btn-sm edit-debit" data-toggle="tooltip" data-placement="top" title="Edit Debit Note Detail">
+                                    <a href="{{ route('credit.edit', $credit->id) }}" class="btn btn-outline-success btn-sm edit-credit" data-toggle="tooltip" data-placement="top" title="Edit Credit Note Detail">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <button class="btn btn-outline-danger btn-sm delete-debit" data-id="{{ $debit->id }}" data-toggle="tooltip" data-placement="top" title="Delete Debit Note Detail">
+                                    <button class="btn btn-outline-danger btn-sm delete-credit" data-id="{{ $credit->id }}" data-toggle="tooltip" data-placement="top" title="Delete Credit Note Detail">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -186,30 +186,30 @@
     <script>
         jQuery(function($) {
             // data table
-            $('#debit-table').DataTable({
+            $('#credit-table').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: "print",
-                        title: "Debit Note Voucher Entry",
+                        title: "Credit Note Voucher Entry",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            columns: [0, 1, 2, 3, 4, 5, 6],
                         },
                         text: '<i class="fas fa-fw fa-print"></i> Print'
                     },
                     {
                         extend: "excel",
-                        title: "Debit Note Voucher Entry",
+                        title: "Credit Note Voucher Entry",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            columns: [0, 1, 2, 3, 4, 5, 6],
                         },
                         text: '<i class="fas fa-fw fa-file-excel"></i> Download as Excel'
                     },
                     {
                         extend: "pdf",
-                        title: "Debit Note Voucher Entry",
+                        title: "Credit Note Voucher Entry",
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            columns: [0, 1, 2, 3, 4, 5, 6],
                         },
                         text: '<i class="fas fa-fw fa-file-pdf"></i> Download as PDF'
                     },
@@ -221,10 +221,10 @@
 
             // $('#reservation').daterangepicker();
 
-            $('#debit-table').on('click', '.delete-debit', function() {
-                if (confirm("Are you sure you want to delete this debit data?")) {
+            $('#credit-table').on('click', '.delete-credit', function() {
+                if (confirm("Are you sure you want to delete this credit data?")) {
                     let id = this.dataset.id,
-                        url = "{{ route('debit.destroy', ':id') }}";
+                        url = "{{ route('credit.destroy', ':id') }}";
 
                     url = url.replace(":id", id);
 

@@ -122,7 +122,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ Request::is('note/credit*') ? "active" : "" }}">
+                            <a href="{{ route('credit.index') }}" class="nav-link {{ Request::is('note/credit*') ? "active" : "" }}">
                                 <i class="nav-icon fas fa-hand-holding-usd"></i>
                                 <p>Credit Note Entry</p>
                             </a>
