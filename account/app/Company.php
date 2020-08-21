@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $fillable = ['name', 'reg_no', 'reg_date', 'type', 'user_id'];
+    protected $fillable = ['name', 'reg_no', 'reg_date', 'address', 'contact_no', 'type', 'user_id'];
     
     // many to one relation with user
     public function user() {

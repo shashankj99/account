@@ -46,7 +46,7 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request) {
         // add company detail to the DB with authorized user id
         try {
-            $request->user()->companies()->create($request->validated());
+            $request->user()->companies()->create($request->validated() + ['address' => $request->address, 'contact_no' => $request->contact_no]);
 
             Session::flash('success', "Company is added successfully");
             return redirect()->route('company.index');
@@ -73,7 +73,7 @@ class CompanyController extends Controller
     // function to update the company detail
     public function update(CompanyRequest $request, Company $company) {
         try {
-            $company->update($request->validated());
+            $company->update($request->validated() + ['address' => $request->address, 'contact_no' => $request->contact_no]);
 
             Session::flash('success', "Company is updated successfully");
             return redirect()->route('company.index');
