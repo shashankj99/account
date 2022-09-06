@@ -21,11 +21,23 @@ class HomeController extends Controller
     public function index() {
         if (Auth::user()->email == config('app.admin')) {
             $totalCompanyAudited = Company::count();
-            $maxCategory = Company::leftJoin('categories', 'companies.type', '=', 'categories.id')->select('categories.name')->groupBy('categories.name')->orderByRaw('COUNT(*) DESC')->limit(1)->first()->name;
+            $company = Company::leftJoin('categories', 'companies.type', '=', 'categories.id')
+                ->select('categories.name')
+                ->groupBy('categories.name')
+                ->orderByRaw('COUNT(*) DESC')
+                ->limit(1)
+                ->first();
         } else {
             $totalCompanyAudited = Company::where('user_id', Auth::id())->count();
-            $maxCategory = Company::leftJoin('categories', 'companies.type', '=', 'categories.id')->where('categories.user_id', Auth::id())->select('categories.name')->groupBy('categories.name')->orderByRaw('COUNT(*) DESC')->limit(1)->first()->name;
+            $company = Company::leftJoin('categories', 'companies.type', '=', 'categories.id')
+                ->where('categories.user_id', Auth::id())
+                ->select('categories.name')
+                ->groupBy('categories.name')
+                ->orderByRaw('COUNT(*) DESC')
+                ->limit(1)
+                ->first();
         }
+        $maxCategory = $company ?? 'No Name';
         return view('home', compact('totalCompanyAudited', 'maxCategory'));
     }
 }
